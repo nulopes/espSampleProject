@@ -1,3 +1,10 @@
+# Origin
+
+This project is totally based on the [example](https://github.com/espressif/esp-idf/tree/release/v4.3/examples/system/unit_test) from ESP-IDF version 4.3 .
+I think the way the project is named (always using test) makes it confusing when setting it up on an existing system. I also wanted to try some more evolved concepts.
+
+The text below is close to the original, with changes pertaining to the modifications that were made.
+
 # Unit Testing
 
 (See the README.md file in the upper level 'examples' directory for more information about examples.)
@@ -15,26 +22,26 @@ _Note: It is also possible to use built-in Unity facility, unity_fixture.h, to d
 ## Project layout
 
 ```
-unit_test                      — Application project directory
+espSampleProject               — Application project directory
   - components                 — Components of the application project
-    + testable
+    + mean_calc
   + main                       - Main source files of the application project
   + test                       — Test project directory
   Makefile / CMakeLists.txt    - Makefiles of the application project
 ```
 
-The layout of this example resembles a layout of a real project which has custom components in its `components/` directory. In this case this is the component called `testable`. In addition to `components/`, `main/` and `Makefile` / `CMakeLists.txt`, this project includes a *test project* in its *test* subdirectory.
+The layout of this example resembles a layout of a real project which has custom components in its `components/` directory. In this case this is the component called `mean_calc`. In addition to `components/`, `main/` and `Makefile` / `CMakeLists.txt`, this project includes a *test project* in its *test* subdirectory.
 
 The purpose of two projects is to implement different application behavior when running normally, and when running the unit tests. Top level project is the actual application being developed. Test project included within is a simple application which only runs the unit tests.
 
 ## Unit tests for a component
 
-Inside the `testable` component, unit tests are added into `test` directory. `test` directory contains source files of the tests and the component makefile (component.mk / CMakeLists.txt).
+Inside the `mean_calc` component, unit tests are added into `test` directory. `test` directory contains source files of the tests and the component makefile (component.mk / CMakeLists.txt).
 
 ```
-unit_test
+espSampleProject
   - components                              - Components of the application project
-    - testable
+    - mean_calc
       - include
       - test                                - Test directory of the component
         * component.mk / CMakeLists.txt     - Component makefile of tests
@@ -63,12 +70,12 @@ As explained above, this example contains two projects: application project and 
 
 1. Application project calls an API defined in the component, and displays the results. It is not of much value to run. Application project is provided mainly to illustrate the layout of all the files. If you decide to run this project, the procedure is:
 
-    * Run `idf.py -p PORT flash monitor` in the current directory (`unit_test`).
+    * Run `idf.py -p PORT flash monitor` in the current directory (`espSampleProject`).
     * Observe the output: a list of random numbers and their mean value.
 
 2. Test project is responsible for running the tests.
 
-	* Enter `test` directory (`unit_test/test`), and run `idf.py -p PORT flash monitor`.
+	* Enter `test` directory (`espSampleProject/test`), and run `idf.py -p PORT flash monitor`.
 	* Observe the output: results of test case execution.
 
 
@@ -96,7 +103,7 @@ Mean: 45
 #### Executing one test by its name #####
 
 Running Mean of an empty array is zero...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:16:Mean of an empty array is zero:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:16:Mean of an empty array is zero:PASS
 
 -----------------------
 1 Tests 0 Failures 0 Ignored 
@@ -106,11 +113,11 @@ OK
 
 Running tests matching '[mean]'...
 Running Mean of an empty array is zero...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:16:Mean of an empty array is zero:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:16:Mean of an empty array is zero:PASS
 Running Mean of a test vector...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:22:Mean of a test vector:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:22:Mean of a test vector:PASS
 Running Another test case which fails...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:35:Another test case which fails:FAIL: Expected 2147483647 Was -1
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:35:Another test case which fails:FAIL: Expected 2147483647 Was -1
 
 -----------------------
 3 Tests 1 Failures 0 Ignored 
@@ -120,9 +127,9 @@ FAIL
 
 Running tests NOT matching '[fails]'...
 Running Mean of an empty array is zero...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:16:Mean of an empty array is zero:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:16:Mean of an empty array is zero:PASS
 Running Mean of a test vector...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:22:Mean of a test vector:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:22:Mean of a test vector:PASS
 
 -----------------------
 2 Tests 0 Failures 0 Ignored 
@@ -131,11 +138,11 @@ OK
 #### Running all the registered tests #####
 
 Running Mean of an empty array is zero...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:16:Mean of an empty array is zero:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:16:Mean of an empty array is zero:PASS
 Running Mean of a test vector...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:22:Mean of a test vector:PASS
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:22:Mean of a test vector:PASS
 Running Another test case which fails...
-/Users/ivan/e/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:35:Another test case which fails:FAIL: Expected 2147483647 Was -1
+/Users/ivan/e/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:35:Another test case which fails:FAIL: Expected 2147483647 Was -1
 
 -----------------------
 3 Tests 1 Failures 0 Ignored 
@@ -166,7 +173,7 @@ For example, the output when typing `1` and then `ENTER` will be:
 
 ```
 Running Mean of an empty array is zero...
-/home/user/esp/esp-idf/examples/system/unit_test/components/testable/test/test_mean.c:15:Mean of an empty array is zero:PASS
+/home/user/esp/esp-idf/examples/system/espSampleProject/components/mean_calc/test/test_mean.c:15:Mean of an empty array is zero:PASS
 Test ran in 16ms
 
 -----------------------

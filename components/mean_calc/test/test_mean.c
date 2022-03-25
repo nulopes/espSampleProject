@@ -9,7 +9,7 @@
 
 #include <limits.h>
 #include "unity.h"
-#include "testable.h"
+#include "mean_calc.h"
 
 #define countof(x) (sizeof(x)/sizeof(x[0]))
 

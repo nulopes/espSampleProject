@@ -8,7 +8,7 @@
    CONDITIONS OF ANY KIND, either express or implied.
 */
 
-#include "testable.h"
+#include "mean_calc.h"
 
 
 int testable_mean(const int* values, int count)

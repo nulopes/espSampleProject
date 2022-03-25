@@ -3,6 +3,6 @@
 # See 'test' subdirectory for the test subproject.
 #
 
-PROJECT_NAME := unit_test
+PROJECT_NAME := espSampleProject
 
 include $(IDF_PATH)/make/project.mk
